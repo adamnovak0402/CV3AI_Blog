@@ -8,8 +8,12 @@ require_once('layout/navigation.php');
 
 <main class="container">
 
-   <form>
-
+   <form method="POST" action="form_control/register_form.php">
+       <input name="nickname" type="text">
+       <br>
+       <input name="password" type="password">
+       <br>
+       <input type="submit" value="Registrovat se">
    </form>
 
 </main>
