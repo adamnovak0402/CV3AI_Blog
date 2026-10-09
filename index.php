@@ -1,4 +1,30 @@
 <?php
+try {
+    $host = "192.168.100.88";
+    $dbname = "tester_blog3AI";
+    $user = "tester";
+    $password = "tester";
+
+    $dsn = "mysql:host=$host;dbname=$dbname";
+
+    $connection = new PDO($dsn, $user, $password);
+
+    $connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    $connection->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
+
+    $SQL = "SELECT id, title, created_at, content FROM posts";
+
+    $statement = $connection->query($SQL);
+
+    $prispevky = $statement->fetchAll();
+    print_r($prispevky);
+
+}catch(Exception $e) {
+    echo $e->getMessage();
+}
+?>
+
+<?php
 require_once('layout/header.php');
 ?>
 
@@ -8,22 +34,19 @@ require_once('layout/navigation.php');
 
 <main class="container">
 
-    <article class="post">
-        <a href="#" class="post-title">První příspěvek na blogu</a>
-        <div class="post-date">2. října 2026</div>
+    <?php
+    foreach ($prispevky as $prispevek) {
+        echo ('    <article class="post">
+        <a href="#" class="post-title">'.$prispevek['title'].'</a>
+        <div class="post-date">'.$prispevek['created_at'].'</div>
         <div class="post-content">
-            <p>Tohle je ukázkový text prvního článku. Zde můžeš psát libovolný obsah, vkládat odstavce, obrázky nebo další formátování podle své chuti.</p>
-            <p>CSS styly jsou navržené tak, aby byl web přehledný, čistý a dobře čitelný na mobilech i počítačích.</p>
+            <p>'.$prispevek['content'].'</p>
         </div>
-    </article>
+    </article>');
 
-    <article class="post">
-        <a href="#" class="post-title">Jak začít s programováním webu</a>
-        <div class="post-date">28. září 2026</div>
-        <div class="post-content">
-            <p>Základem každého webu je HTML, které tvoří kostru, a CSS, které se stará o vzhled. Společně tvoří skvělý základ pro cokoli, co chceš na internetu vytvořit.</p>
-        </div>
-    </article>
+    }
+
+    ?>
 
 </main>
 

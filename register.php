@@ -9,9 +9,15 @@ require_once('layout/navigation.php');
 <main class="container">
 
    <form method="POST" action="form_control/register_form.php">
-       <input name="nickname" type="text">
+       <label for="nickname">Nickname:</label>
+       <input name="nickname" type="text" id="nickname">
        <br>
-       <input name="password" type="password">
+       <label for="password">Password:</label>
+       <input name="password" type="password" id="password">
+       <br>
+
+       <label for="password2">Password again:</label>
+       <input name="password2" type="password" id="password2">
        <br>
        <input type="submit" value="Registrovat se">
    </form>
