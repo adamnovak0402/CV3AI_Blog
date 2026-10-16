@@ -1,4 +1,5 @@
 <?php
+session_start();
 if($_SERVER["REQUEST_METHOD"] == "POST") {
     if(empty($_POST["nickname"])){
         echo "Nickname není vyplněn";
@@ -28,15 +29,19 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
             $user = $statement->fetch();
 
 
-            //$jeHesloSpravne
+            $jeHesloSpravne = password_Verify($_POST["password"], $user["password_hash"]);
 
-            if() {
-                echo "Heslo je správné";
+            if($jeHesloSpravne) {
+                $_SESSION["nickname"] = $nickname;
+
+                echo "Úspěšně jsi se přihlásil";
+
+                header("Location: /dashboard.php");
             }else{
                 echo "Heslo se neshoduje";
             }
 
-            print_r($user);
+            //print_r($user);
 
 
 
