@@ -28,12 +28,13 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 
             $nickname = $_POST["nickname"];
             $password = $_POST["password"];
+            $password_hashed = password_hash($password, PASSWORD_DEFAULT);
 
             $SQL = "INSERT INTO users (nickname, password_hash) VALUES (?, ?)";
 
             $statement = $connection->prepare($SQL);
 
-            $statement->execute([$nickname, $password]);
+            $statement->execute([$nickname, $password_hashed]);
 
             echo "Registrace je úspěšná";
 
