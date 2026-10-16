@@ -17,7 +17,6 @@ try {
     $statement = $connection->query($SQL);
 
     $prispevky = $statement->fetchAll();
-    print_r($prispevky);
 
 }catch(Exception $e) {
     echo $e->getMessage();
@@ -37,7 +36,7 @@ require_once('layout/navigation.php');
     <?php
     foreach ($prispevky as $prispevek) {
         echo ('    <article class="post">
-        <a href="#" class="post-title">'.$prispevek['title'].'</a>
+        <a href="prispevek.php?id='.$prispevek['id'].'" class="post-title">'.$prispevek['title'].'</a>
         <div class="post-date">'.$prispevek['created_at'].'</div>
         <div class="post-content">
             <p>'.$prispevek['content'].'</p>
