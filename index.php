@@ -35,13 +35,17 @@ require_once('layout/navigation.php');
 
     <?php
     foreach ($prispevky as $prispevek) {
-        echo ('    <article class="post">
-        <a href="prispevek.php?id='.$prispevek['id'].'" class="post-title">'.$prispevek['title'].'</a>
-        <div class="post-date">'.$prispevek['created_at'].'</div>
-        <div class="post-content">
-            <p>'.$prispevek['content'].'</p>
-        </div>
-    </article>');
+        echo ('
+        <article class="post">
+            <a href="prispevek.php?id='.$prispevek['id'].'" class="post-title">'.$prispevek['title'].'</a>
+            <div class="post-date">'.$prispevek['created_at'].'</div>
+            <div class="post-content">
+                <p>'.$prispevek['content'].'</p>
+            </div>
+            <a href="edit.php?id='.$prispevek['id'].'" >Editovat 🔧</a>
+        </article>
+    
+    ');
 
     }
 

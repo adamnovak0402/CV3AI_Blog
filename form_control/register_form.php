@@ -35,7 +35,6 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             $statement = $connection->prepare($SQL);
 
             $statement->execute([$nickname, $password_hashed]);
-
             echo "Registrace je úspěšná";
 
 
