@@ -1,41 +1,72 @@
+
 <?php
-if($_SERVER["REQUEST_METHOD"] == "GET") {
-    if(!isset($_GET["id"])) {
-        echo "ID chybí";
-        die();
-    }elseif(!is_numeric($_GET["id"])) {
-        echo "ID není číslo";
-        die();
-    }else{
-        try {
-            $host = "192.168.100.88";
-            $dbname = "tester_blog3AI";
-            $user = "tester";
-            $password = "tester";
+require_once('layout/header.php');
+?>
 
-            $dsn = "mysql:host=$host;dbname=$dbname";
+<?php
+require_once('layout/navigation.php');
+?>
 
-            $connection = new PDO($dsn, $user, $password);
+<main class="container">
+    <?php
+    if($_SERVER["REQUEST_METHOD"] == "GET") {
+        if(!isset($_GET["id"])) {
+            echo "ID chybí";
+            die();
+        }elseif(!is_numeric($_GET["id"])) {
+            echo "ID není číslo";
+            die();
+        }else{
+            try {
+                $host = "192.168.100.88";
+                $dbname = "tester_blog3AI";
+                $user = "tester";
+                $password = "tester";
 
-            $connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-            $connection->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
+                $dsn = "mysql:host=$host;dbname=$dbname";
 
-            $SQL = "SELECT id, title, created_at, content FROM posts WHERE id = ?";
+                $connection = new PDO($dsn, $user, $password);
 
-            $statement = $connection->prepare($SQL);
-            $id = $_GET["id"];
-            $statement->execute([$id]);
+                $connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+                $connection->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
 
-            $prispevek = $statement->fetch();
+                $SQL = "SELECT id, title, created_at, content FROM posts WHERE id = ?";
 
-            print_r($prispevek);
+                $statement = $connection->prepare($SQL);
+                $id = $_GET["id"];
+                $statement->execute([$id]);
 
-        }catch(Exception $e) {
-            echo $e->getMessage();
+                $prispevek = $statement->fetch();
+
+                //print_r($prispevek);
+
+                echo ('
+                <article class="post">
+        <a href="prispevek.php?id='.$prispevek['id'].'" class="post-title">'.$prispevek['title'].'</a>
+        <div class="post-date">'.$prispevek['created_at'].'</div>
+        <div class="post-content">
+            <p>'.$prispevek['content'].'</p>
+        </div>
+    </article>
+                ');
+
+            }catch(Exception $e) {
+                echo $e->getMessage();
+            }
+
         }
 
+    }else{
+        echo "Tato metoda není podporovaná";
     }
+    ?>
 
-}else{
-    echo "Tato metoda není podporovaná";
-}
+
+</main>
+
+<?php
+require_once('layout/footer.php');
+?>
+
+</body>
+</html>
