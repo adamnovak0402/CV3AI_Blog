@@ -33,9 +33,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
 
             if($jeHesloSpravne) {
                 $_SESSION["nickname"] = $nickname;
-
                 echo "Úspěšně jsi se přihlásil";
-
                 header("Location: /dashboard.php");
             }else{
                 echo "Heslo se neshoduje";
