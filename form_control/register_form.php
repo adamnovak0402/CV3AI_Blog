@@ -46,7 +46,6 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                     echo "Registrace je úspěšná";
 
 
-
                 }catch(Exception $e) {
                     echo $e->getMessage();
                 }
