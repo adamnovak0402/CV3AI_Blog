@@ -1,13 +1,17 @@
 <?php
 if($_SERVER["REQUEST_METHOD"] == "POST"){
     if(empty($_POST["nickname"])){
-        echo "Nickname není vyplněn";
+        setcookie("error", "Nickname není vyplněn", time()+1, "/register.php");
+        header('Location: /register.php');
     }else if(empty($_POST["password"])) {
-        echo "Heslo není vyplněno";
+        setcookie("error", "Heslo není vyplněno", time()+1, "/register.php");
+        header('Location: /register.php');
     }else if($_POST["password"] == "123456"){
-        echo "Heslo je moc jednoduché.";
+        setcookie("error", "Heslo je moc jednoduché.", time()+1, "/register.php");
+        header('Location: /register.php');
     } else if($_POST["password"] != $_POST["password2"]){
-        echo "hesla se neshoduji";
+        setcookie("error", "hesla se neshoduji", time()+1, "/register.php");
+        header('Location: /register.php');
     }else{
         $host = "192.168.100.88";
         $dbname = "tester_blog3AI";
@@ -25,8 +29,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             $statement->execute([$_POST["nickname"]]);
             $user = $statement->fetch();
             if($user){
-                echo "Uživatel již existuje";
-                die();
+                setcookie("error", "Uživatel již existuje", time()+1, "/register.php");
+                header('Location: /register.php');
             }else{
                 try {
                     $connection = new PDO($dsn, $dbuser, $dbpassword);
@@ -53,9 +57,11 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 
 
         }catch (PDOException $e){
-            echo "Connection failed: " . $e->getMessage();
+            setcookie("error", "Connection failed: ". $e->getMessage(), time()+1, "/register.php");
+            header('Location: /register.php');
         }
     }
 }else{
-    echo "Tato metoda není dostupná";
+    setcookie("error", "Tato metoda není dostupná", time()+1, "/register.php");
+    header('Location: /register.php');
 }

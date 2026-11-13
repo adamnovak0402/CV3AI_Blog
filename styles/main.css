@@ -98,3 +98,16 @@ footer {
     font-size: 0.9rem;
     margin-top: 3rem;
 }
+
+.alert {
+    width: 60%;
+    margin: auto;
+    padding: 10px;
+    text-align: center;
+    border: red 1px solid;
+    border-radius: 5px;
+}
+.alert-danger {
+    background-color: #ffc3c3;
+    color: red;
+}

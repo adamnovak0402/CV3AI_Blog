@@ -2,9 +2,11 @@
 session_start();
 if($_SERVER["REQUEST_METHOD"] == "POST") {
     if(empty($_POST["nickname"])){
-        echo "Nickname není vyplněn";
+        setcookie("error", "Nickname není vyplněn", time()+1, "/login.php");
+        header('Location: /login.php');
     } else if(empty($_POST["password"])){
-        echo "Heslo není vyplněno";
+        setcookie("error", "Heslo není vyplněno", time()+1, "/login.php");
+        header('Location: /login.php');
     }else {
         try {
             $host = "192.168.100.88";
@@ -33,15 +35,11 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
 
             if($jeHesloSpravne) {
                 $_SESSION["nickname"] = $nickname;
-                echo "Úspěšně jsi se přihlásil";
                 header("Location: /dashboard.php");
             }else{
-                echo "Heslo se neshoduje";
+                setcookie("error", "Heslo se neshoduje", time()+1, "/login.php");
+                header('Location: /login.php');
             }
-
-            //print_r($user);
-
-
 
         }catch(Exception $e) {
             echo $e->getMessage();

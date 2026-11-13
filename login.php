@@ -7,7 +7,11 @@ require_once('layout/navigation.php');
 ?>
 
 <main class="container">
-
+    <?php
+    if(isset($_COOKIE["error"])) {
+        echo('<div class="alert alert-danger" role="alert">' . htmlspecialchars($_COOKIE["error"]) . '</div>');
+    }
+    ?>
     <form method="POST" action="form_control/login_form.php">
         <label for="nickname">Nickname:</label>
         <input name="nickname" type="text" id="nickname">
