@@ -1,4 +1,5 @@
 <?php
+session_start();
 try {
     $host = "192.168.100.88";
     $dbname = "tester_blog3AI";
@@ -37,12 +38,16 @@ require_once('layout/navigation.php');
     foreach ($prispevky as $prispevek) {
         echo ('
         <article class="post">
-            <a href="prispevek.php?id='.$prispevek['id'].'" class="post-title">'.$prispevek['title'].'</a>
-            <div class="post-date">'.$prispevek['created_at'].'</div>
+            <a href="prispevek.php?id='.htmlspecialchars($prispevek['id']).'" class="post-title">'.htmlspecialchars($prispevek['title']).'</a>
+            <div class="post-date">'.htmlspecialchars($prispevek['created_at']).'</div>
             <div class="post-content">
-                <p>'.$prispevek['content'].'</p>
+                <p>'.htmlspecialchars($prispevek['content']).'</p>
             </div>
-            <a href="edit.php?id='.$prispevek['id'].'" >Editovat 🔧</a>
+            ');
+        if(isset($_SESSION["nickname"])){
+            echo ('<a href="edit.php?id='.htmlspecialchars($prispevek['id']).'" >Editovat 🔧</a>');
+        }
+        echo ('
         </article>
     
     ');
