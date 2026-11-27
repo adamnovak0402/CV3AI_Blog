@@ -27,13 +27,10 @@ try {
 <?php
 require_once('layout/header.php');
 ?>
-
 <?php
 require_once('layout/navigation.php');
 ?>
-
 <main class="container">
-
     <?php
     foreach ($prispevky as $prispevek) {
         echo ('
